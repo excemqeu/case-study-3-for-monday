@@ -62,4 +62,15 @@ def main():
                 print("-" * 50)
 
             elif choice == "2":
-                
+
+                if not customers:
+                    print("There is no customer with that name")
+                else:
+                    print("=" * 50)
+                    print(f"===ALL CUSTOMERS BILL===")
+                    print("=" * 50)
+                    for i, all_customers in enumerate(customers, 1):
+                        print(f"{i}, {all_customers['customer_name']:20}  |  {all_customers['kwh']:10,.2f} kWh consumed  |  "
+                            f"₱{all_customers['base']:10.2f}  |  ₱{all_customers['surcharge']:5.2f} surcharge  |  ₱{all_customers['total']:10.2f}")
+                    print("=" * 50)
+                    
