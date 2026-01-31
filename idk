@@ -23,7 +23,7 @@ def main():
         menu()
         try:
             choice = int(input("Enter your choice (1-5): "))
-            if choice == "1":
+            if choice == 1:
                 print("\n=== NEW CUSTOMER BILL===")
                 customer_name = input("Enter your name: ")
 
@@ -35,9 +35,9 @@ def main():
                         if kwh < 0:
                             print("Your kWh consumption cannot be negative")
                             continue
-
+                        break
                     except ValueError:
-                        print("Invalid input, please input a valid number")
+                        print("Invalid input, please enter a valid number")
 
                 base = billing_calculation(kwh)
                 surcharge = base * 0.05 if kwh > 300 else 0
@@ -61,16 +61,68 @@ def main():
                 print(f"total: {total}")
                 print("-" * 50)
 
-            elif choice == "2":
+                print("=" * 30)
+                print("Do you wish to return to menu?")
+                menu_exit = input("Press enter to return, or type 'exit' to quit: ").lower()
+                if menu_exit == "exit":
+                    print("Thank you for using this system")
+                    break
+
+            elif choice == 2:
 
                 if not customers:
                     print("There is no customer in the system")
                 else:
                     print("=" * 50)
-                    print(f"===ALL CUSTOMERS BILL===")
+                    print(f"ALL CUSTOMERS BILL")
                     print("=" * 50)
                     for i, all_customers in enumerate(customers, 1):
                         print(f"{i}, {all_customers['customer_name']:20}  |  {all_customers['kwh']:10,.2f} kWh consumed  |  "
                             f"₱{all_customers['base']:10.2f}  |  ₱{all_customers['surcharge']:5.2f} surcharge  |  ₱{all_customers['total']:10.2f}")
                     print("=" * 50)
-                    
+
+                print("=" * 30)
+                print("Do you wish to return to menu?")
+                menu_exit = input("Press enter to return, or type 'exit' to quit: ").lower()
+                if menu_exit == "exit":
+                    print("Thank you for using this system")
+                    break
+            elif choice == 3:
+                print("=" * 50)
+                print("SEARCH FOR CUSTOMER")
+                print("=" * 50)
+                if not customers:
+                    print("There is no customer in the system")
+                else:
+                    search_name = input("Enter a customer name to search: ")
+                    found = False
+                    for all_customers in customers:
+                        if search_name.lower() in all_customers['customer_name'].lower():
+                            print(f"Found: {all_customers['customer_name']}")
+                            print(f"  kWh: {all_customers['kwh']:10,.2f}")
+                            print(f"  base: {all_customers['base']:10.2f}")
+                            if all_customers['surcharge'] > 0:
+                                print(f"  surcharge: {all_customers['surcharge']:5.2f}")
+                            print(f"  total: {all_customers['total']:10.2f}")
+                            found = True
+                if not found:
+                    print("Customer not found")
+
+                print("=" * 30)
+                print("Do you wish to return to menu?")
+                menu_exit = input("Press enter to return, or type 'exit' to quit: ").lower()
+                if menu_exit == "exit":
+                    print("Thank you for using this system")
+                    break
+
+            elif choice == 4:
+                print("===Thank You for using this system===")
+                break
+
+            else:
+                print("Invalid input, please enter 1-5")
+        except ValueError:
+            print("Invalid input, please enter a valid number")
+
+if __name__ == "__main__":
+    main()
