@@ -1,20 +1,35 @@
+RESET = "\033[0m"
+BOLD = "\033[1m"
+RED = "\033[91m"
+GREEN = "\033[92m"
+YELLOW = "\033[93m"
+BLUE = "\033[94m"
+PURPLE = "\033[95m"
+CYAN = "\033[96m"
+WHITE = "\033[97m"
+BG_BLUE = "\033[44m"
+BG_GREEN = "\033[42m"
+BG_YELLOW = "\033[43m"
+BG_RED = "\033[41m"
+
 def billing_calculation(kwh):
     if kwh <= 100:
-        return 100 * 10
+        bill = 100 * 10
     elif kwh <= 200:
-        return (100 * 10) + ((kwh - 100) * 12)
+        bill = (100 * 10) + ((kwh - 100) * 12)
     else:
-        return (100 * 10) + (100 * 12) + ((kwh - 200) * 15)
+        bill = (100 * 10) + (100 * 12) + ((kwh - 200) * 15)
+    return bill
 
 def menu():
-    print("=" * 50)
-    print("ELECTRICITY BILLING MENU")
-    print("=" * 50)
-    print("[1] New customer bill")
-    print("[2] View all customer bills")
-    print("[3] Search for a customer bill")
-    print("[4] Exit")
-    print("=" * 50)
+    print(CYAN +'=' * 110, RESET)
+    print(f"{WHITE}{BOLD}{'ELECTRICITY BILLING MENU'.center(110, "=")}{RESET}")
+    print(CYAN + "=" * 110, RESET)
+    print(f"{GREEN}{BOLD}[1] New customer bill{RESET}")
+    print(f"{YELLOW}{BOLD}[2] View all customer bills{RESET}")
+    print(f"{BLUE}{BOLD}[3] Search for a customer bill{RESET}")
+    print(f"{RED}{BOLD}[4] Exit{RESET}")
+    print(CYAN + "=" * 110, RESET)
 
 def main():
     customers = []
@@ -22,22 +37,22 @@ def main():
     while True:
         menu()
         try:
-            choice = int(input("Enter your choice (1-5): "))
+            choice = int(input(f"{WHITE}{BOLD}Enter your choice (1-5): {RESET}"))
             if choice == 1:
-                print("\n=== NEW CUSTOMER BILL===")
-                customer_name = input("Enter your name: ")
+                print(f"{PURPLE}{BOLD}\n{'NEW CUSTOMER BILL'.center(110, '=')}{RESET}")
+                customer_name = input(f"{WHITE}{BOLD}Enter your name: {RESET}")
 
                 while True:
 
                     try:
-                        kwh = float(input("Enter kWh consumed: "))
+                        kwh = float(input(f"{WHITE}{BOLD}Enter kWh consumed: {RESET}"))
 
                         if kwh < 0:
-                            print("Your kWh consumption cannot be negative")
+                            print(f"{RED}{BOLD}Your kWh consumption cannot be negative{RESET}")
                             continue
                         break
                     except ValueError:
-                        print("Invalid input, please enter a valid number")
+                        print(f"{RED}{BOLD}Invalid input, please enter a valid number{RESET}")
 
                 base = billing_calculation(kwh)
                 surcharge = base * 0.05 if kwh > 300 else 0
@@ -53,76 +68,84 @@ def main():
 
                 customers.append(customer)
 
-                print("-" * 50)
-                print(f"Customer Name: {customer_name}")
-                print(f"kWh consumed: {kwh}")
-                print(f"base: {base}")
-                print(f"surcharge: {surcharge}")
-                print(f"total: {total}")
-                print("-" * 50)
+                print(CYAN + "=" * 110, RESET)
+                print(f"{WHITE}{BOLD}{'BILL SUMMARY'.center(110, "=")}{RESET}")
+                print(CYAN + "=" * 110, RESET)
+                print(f"{WHITE}{BOLD}{'Customer Name':<15}: {WHITE}{BOLD}{customer_name}{RESET}")
+                print(f"{WHITE}{BOLD}{'kWh consumed':<15}: {BLUE}{BOLD}{kwh:,.2f}{RESET}")
+                print(f"{WHITE}{BOLD}{'base':<15}: {YELLOW}{BOLD}₱{base:,.2f}{RESET}")
+                if surcharge > 0:
+                    print(f"{WHITE}{BOLD}{'surcharge':<15}: {RED}{BOLD}₱{surcharge:,.2f}{RESET}")
+                else:
+                    print(f"{WHITE}{BOLD}{'surcharge':<15}: {GREEN}{BOLD}₱{surcharge:,.2f}{RESET}")
+                print(f"{WHITE}{BOLD}{'total':<15}: {GREEN}{BOLD}₱{total:,.2f}{RESET}")
+                print(CYAN + "-" * 110, RESET)
 
-                print("=" * 30)
-                print("Do you wish to return to menu?")
-                menu_exit = input("Press enter to return, or type 'exit' to quit: ").lower()
+                print(CYAN + "=" * 110, RESET)
+                print(f"{WHITE}{BOLD}Do you wish to return to menu?{RESET}")
+                menu_exit = input(f"{WHITE}{BOLD}Press {GREEN}enter{WHITE}{BOLD} to return, or type {RED}'exit'{WHITE}{BOLD} to quit: {RESET}").lower()
                 if menu_exit == "exit":
-                    print("Thank you for using this system")
+                    print(f"{GREEN}{BOLD}Thank you for using this system{RESET}")
                     break
 
             elif choice == 2:
 
                 if not customers:
-                    print("There is no customer in the system")
+                    print(f"{RED}{BOLD}There is no customer in the system{RESET}")
                 else:
-                    print("=" * 50)
-                    print(f"ALL CUSTOMERS BILL")
-                    print("=" * 50)
+                    print(CYAN + "=" * 110, RESET)
+                    print(f"{GREEN}{BOLD}ALL CUSTOMERS BILL{RESET}")
+                    print(CYAN + "=" * 110, RESET)
                     for i, all_customers in enumerate(customers, 1):
-                        print(f"{i}, {all_customers['customer_name']:20}  |  {all_customers['kwh']:10,.2f} kWh consumed  |  "
-                            f"₱{all_customers['base']:10.2f}  |  ₱{all_customers['surcharge']:5.2f} surcharge  |  ₱{all_customers['total']:10.2f}")
-                    print("=" * 50)
+                        print(f"{i}, {WHITE}{BOLD}{all_customers['customer_name']:10}  |  {BLUE}{BOLD}{all_customers['kwh']:8,.2f} kWh consumed  |  "
+                            f"{YELLOW}{BOLD}₱{all_customers['base']:10,.2f} base  |  {RED}{BOLD}₱{all_customers['surcharge']:>8,.2f} surcharge  |  {GREEN}{BOLD}₱{all_customers['total']:10,.2f} total{RESET}")
+                    print(CYAN + "=" * 110, RESET)
 
-                print("=" * 30)
-                print("Do you wish to return to menu?")
-                menu_exit = input("Press enter to return, or type 'exit' to quit: ").lower()
+                print(CYAN + "=" * 110, RESET)
+                print(f"{WHITE}{BOLD}Do you wish to return to menu?{RESET}")
+                menu_exit = input(f"{WHITE}{BOLD}Press {GREEN}{BOLD}enter{WHITE}{BOLD} to return, or type {RED}{BOLD}'exit'{WHITE}{BOLD} to quit: {RESET}").lower()
                 if menu_exit == "exit":
-                    print("Thank you for using this system")
+                    print(f"{GREEN}{BOLD}Thank you for using this system{RESET}")
                     break
             elif choice == 3:
-                print("=" * 50)
-                print("SEARCH FOR CUSTOMER")
-                print("=" * 50)
+                print(CYAN + "=" * 110, RESET)
+                print(f"{BLUE}{BOLD}SEARCH FOR CUSTOMER{RESET}")
+                print(CYAN + "=" * 110, RESET)
+
+                found = False
+
                 if not customers:
-                    print("There is no customer in the system")
+                    print(f"{RED}{BOLD}There is no customer in the system{RESET}")
                 else:
-                    search_name = input("Enter a customer name to search: ")
+                    search_name = input(f"{WHITE}{BOLD}Enter a customer name to search: {RESET}")
                     found = False
                     for all_customers in customers:
                         if search_name.lower() in all_customers['customer_name'].lower():
-                            print(f"Found: {all_customers['customer_name']}")
-                            print(f"  kWh: {all_customers['kwh']:10,.2f}")
-                            print(f"  base: {all_customers['base']:10.2f}")
+                            print(f"{WHITE}{BOLD}{'Found':<15}: {all_customers['customer_name']:>{10}}{RESET}")
+                            print(f"{WHITE}{BOLD}{'kWh':<15}:  {BLUE}{BOLD}{all_customers['kwh']:10,.2f}{RESET}")
+                            print(f"{WHITE}{BOLD}{'base':<15}: {YELLOW}{BOLD}₱{all_customers['base']:10,.2f}{RESET}")
                             if all_customers['surcharge'] > 0:
-                                print(f"  surcharge: {all_customers['surcharge']:5.2f}")
-                            print(f"  total: {all_customers['total']:10.2f}")
+                                print(f"{WHITE}{BOLD}{'surcharge':<15}: {RED}{BOLD}₱{all_customers['surcharge']:10,.2f}{RESET}")
+                            print(f"{WHITE}{BOLD}{'total':<15}: {GREEN}{BOLD}₱{all_customers['total']:10,.2f}{RESET}")
                             found = True
                 if not found:
-                    print("Customer not found")
+                    print(f"{RED}{BOLD}Customer not found{RESET}")
 
-                print("=" * 30)
-                print("Do you wish to return to menu?")
-                menu_exit = input("Press enter to return, or type 'exit' to quit: ").lower()
+                print(CYAN + "=" * 110, RESET)
+                print(f"{WHITE}{BOLD}Do you wish to return to menu?{RESET}")
+                menu_exit = input(f"{WHITE}{BOLD}Press {GREEN}{BOLD}enter {WHITE}{BOLD}to return, or type {RED}{BOLD}'exit' {WHITE}{BOLD}to quit: {RESET}").lower()
                 if menu_exit == "exit":
-                    print("Thank you for using this system")
+                    print(f"{GREEN}{BOLD}Thank you for using this system{RESET}")
                     break
 
             elif choice == 4:
-                print("===Thank You for using this system===")
+                print(f"{GREEN}{BOLD}===Thank You for using this system==={RESET}")
                 break
 
             else:
-                print("Invalid input, please enter 1-5")
+                print(f"{RED}{BOLD}Invalid input, please enter 1-5{RESET}")
         except ValueError:
-            print("Invalid input, please enter a valid number")
+            print(f"{RED}{BOLD}Invalid input, please enter a valid number{RESET}")
 
 if __name__ == "__main__":
     main()
