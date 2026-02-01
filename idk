@@ -22,14 +22,14 @@ def billing_calculation(kwh):
     return bill
 
 def menu():
-    print(CYAN +'=' * 110, RESET)
-    print(f"{WHITE}{BOLD}{'ELECTRICITY BILLING MENU'.center(110, "=")}{RESET}")
-    print(CYAN + "=" * 110, RESET)
+    print(CYAN +'=' * 70, RESET)
+    print(f"{WHITE}{BOLD}{'ELECTRICITY BILLING MENU'.center(70, "=")}{RESET}")
+    print(CYAN + "=" * 70, RESET)
     print(f"{GREEN}{BOLD}[1] New customer bill{RESET}")
     print(f"{YELLOW}{BOLD}[2] View all customer bills{RESET}")
     print(f"{BLUE}{BOLD}[3] Search for a customer bill{RESET}")
     print(f"{RED}{BOLD}[4] Exit{RESET}")
-    print(CYAN + "=" * 110, RESET)
+    print(CYAN + "=" * 70, RESET)
 
 def main():
     customers = []
@@ -39,7 +39,7 @@ def main():
         try:
             choice = int(input(f"{WHITE}{BOLD}Enter your choice (1-4): {RESET}"))
             if choice == 1:
-                print(f"{PURPLE}{BOLD}\n{'NEW CUSTOMER BILL'.center(110, '=')}{RESET}")
+                print(f"{PURPLE}{BOLD}\n{'NEW CUSTOMER BILL'.center(70, '=')}{RESET}")
                 customer_name = input(f"{WHITE}{BOLD}Enter your name: {RESET}")
 
                 while True:
@@ -68,9 +68,9 @@ def main():
 
                 customers.append(customer)
 
-                print(CYAN + "=" * 110, RESET)
-                print(f"{WHITE}{BOLD}{'BILL SUMMARY'.center(110, "=")}{RESET}")
-                print(CYAN + "=" * 110, RESET)
+                print(CYAN + "=" * 70, RESET)
+                print(f"{WHITE}{BOLD}{'BILL SUMMARY'.center(70, "=")}{RESET}")
+                print(CYAN + "=" * 70, RESET)
                 print(f"{WHITE}{BOLD}{'Customer Name':<15}: {WHITE}{BOLD}{customer_name}{RESET}")
                 print(f"{WHITE}{BOLD}{'kWh consumed':<15}: {BLUE}{BOLD}{kwh:,.2f}{RESET}")
                 print(f"{WHITE}{BOLD}{'base':<15}: {YELLOW}{BOLD}₱{base:,.2f}{RESET}")
@@ -79,9 +79,9 @@ def main():
                 else:
                     print(f"{WHITE}{BOLD}{'surcharge':<15}: {GREEN}{BOLD}₱{surcharge:,.2f}{RESET}")
                 print(f"{WHITE}{BOLD}{'total':<15}: {GREEN}{BOLD}₱{total:,.2f}{RESET}")
-                print(CYAN + "-" * 110, RESET)
+                print(CYAN + "-" * 70, RESET)
 
-                print(CYAN + "=" * 110, RESET)
+                print(CYAN + "=" * 70, RESET)
                 print(f"{WHITE}{BOLD}Do you wish to return to menu?{RESET}")
                 menu_exit = input(f"{WHITE}{BOLD}Press {GREEN}enter{WHITE}{BOLD} to return, or type {RED}'exit'{WHITE}{BOLD} to quit: {RESET}").lower()
                 if menu_exit == "exit":
@@ -101,16 +101,16 @@ def main():
                             f"{YELLOW}{BOLD}₱{all_customers['base']:10,.2f} base  |  {RED}{BOLD}₱{all_customers['surcharge']:>8,.2f} surcharge  |  {GREEN}{BOLD}₱{all_customers['total']:10,.2f} total{RESET}")
                     print(CYAN + "=" * 110, RESET)
 
-                print(CYAN + "=" * 110, RESET)
+                print(CYAN + "=" * 70, RESET)
                 print(f"{WHITE}{BOLD}Do you wish to return to menu?{RESET}")
                 menu_exit = input(f"{WHITE}{BOLD}Press {GREEN}{BOLD}enter{WHITE}{BOLD} to return, or type {RED}{BOLD}'exit'{WHITE}{BOLD} to quit: {RESET}").lower()
                 if menu_exit == "exit":
                     print(f"{GREEN}{BOLD}Thank you for using this system{RESET}")
                     break
             elif choice == 3:
-                print(CYAN + "=" * 110, RESET)
-                print(f"{BLUE}{BOLD}SEARCH FOR CUSTOMER{RESET}")
-                print(CYAN + "=" * 110, RESET)
+                print(CYAN + "=" * 70, RESET)
+                print(f"{BLUE}{BOLD}{'SEARCH FOR CUSTOMER'.center(70, "=")}{RESET}")
+                print(CYAN + "=" * 70, RESET)
 
                 found = False
 
@@ -131,7 +131,7 @@ def main():
                 if not found:
                     print(f"{RED}{BOLD}Customer not found{RESET}")
 
-                print(CYAN + "=" * 110, RESET)
+                print(CYAN + "=" * 70, RESET)
                 print(f"{WHITE}{BOLD}Do you wish to return to menu?{RESET}")
                 menu_exit = input(f"{WHITE}{BOLD}Press {GREEN}{BOLD}enter {WHITE}{BOLD}to return, or type {RED}{BOLD}'exit' {WHITE}{BOLD}to quit: {RESET}").lower()
                 if menu_exit == "exit":
@@ -139,7 +139,7 @@ def main():
                     break
 
             elif choice == 4:
-                print(f"{GREEN}{BOLD}===Thank You for using this system==={RESET}")
+                print(f"{GREEN}{BOLD}{'Thank You for using this system'.center(70, "=")}{RESET}")
                 break
 
             else:
